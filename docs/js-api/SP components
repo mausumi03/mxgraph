@@ -1,0 +1,28 @@
+public onInit(): Promise<void> {                
+       
+    var scriptPromise = new Promise((resolve, reject) => {
+        SPComponentLoader.loadScript('/_layouts/15/init.js', {
+            globalExportsName: '$_global_init'
+        }).catch((error) => {
+        }).then((): Promise<{}> => {
+          return SPComponentLoader.loadScript('/_layouts/15/MicrosoftAjax.js', {
+              globalExportsName: 'Sys'
+          });
+        }).catch((error) => {
+        }).then((): Promise<{}> => {
+            return SPComponentLoader.loadScript('/_layouts/15/SP.Runtime.js', {
+            globalExportsName: 'SP'
+        });
+        }).catch((error) => {
+        }).then((): Promise<{}> => {
+            return SPComponentLoader.loadScript('/_layouts/15/SP.js', {
+            globalExportsName: 'SP'
+        });
+        }).catch((error) => {
+        }).then(() => {
+            resolve();
+        });
+    });
+
+  return Promise.resolve<void>();
+}
